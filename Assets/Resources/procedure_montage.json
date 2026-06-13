@@ -1,0 +1,61 @@
+{
+  "procedureName": "Assemblage du mécanisme piston-bielle-vilebrequin",
+  "mechanismId": "PROC_MOTEUR_ASSEMBLAGE_V1",
+  "steps": [
+    {
+      "id": 1,
+      "instruction": "Placer le vilebrequin dans sa position de référence.",
+      "annotationPrefabName": "Arrow_Vilebrequin",
+      "targetPosition": { "x": 0.0, "y": 0.0, "z": 0.0 },
+      "targetRotation": { "x": 0.0, "y": 0.0, "z": 0.0 },
+      "positionTolerance": 0.05,
+      "rotationTolerance": 10.0,
+      "maxDurationSeconds": 60,
+      "validationMode": 0
+    },
+    {
+      "id": 2,
+      "instruction": "Fixer la bielle sur le maneton du vilebrequin.",
+      "annotationPrefabName": "Arrow_Bielle",
+      "targetPosition": { "x": 0.0, "y": 0.05, "z": 0.0 },
+      "targetRotation": { "x": 0.0, "y": 0.0, "z": 0.0 },
+      "positionTolerance": 0.05,
+      "rotationTolerance": 10.0,
+      "maxDurationSeconds": 60,
+      "validationMode": 0
+    },
+    {
+      "id": 3,
+      "instruction": "Assembler le piston à la bielle.",
+      "annotationPrefabName": "Arrow_Piston",
+      "targetPosition": { "x": 0.0, "y": 0.1, "z": 0.0 },
+      "targetRotation": { "x": 0.0, "y": 0.0, "z": 0.0 },
+      "positionTolerance": 0.05,
+      "rotationTolerance": 10.0,
+      "maxDurationSeconds": 60,
+      "validationMode": 0
+    },
+    {
+      "id": 4,
+      "instruction": "Contrôler le mécanisme complet piston-bielle-vilebrequin.",
+      "annotationPrefabName": "Arrow_Verification",
+      "targetPosition": { "x": 0.0, "y": 0.0, "z": 0.0 },
+      "targetRotation": { "x": 0.0, "y": 0.0, "z": 0.0 },
+      "positionTolerance": 0.08,
+      "rotationTolerance": 15.0,
+      "maxDurationSeconds": 90,
+      "validationMode": 0
+    },
+    {
+      "id": 5,
+      "instruction": "Vérifier le serrage de tous les éléments et valider l'assemblage final.",
+      "annotationPrefabName": "Arrow_Final",
+      "targetPosition": { "x": 0.0, "y": 0.0, "z": 0.0 },
+      "targetRotation": { "x": 0.0, "y": 0.0, "z": 0.0 },
+      "positionTolerance": 0.1,
+      "rotationTolerance": 15.0,
+      "maxDurationSeconds": 120,
+      "validationMode": 0
+    }
+  ]
+}

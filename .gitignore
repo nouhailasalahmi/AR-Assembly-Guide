@@ -1,0 +1,14 @@
+Library/
+Temp/
+Builds/
+obj/
+Logs/
+.vs/
+*.exe
+*.apk
+.ipynb_checkpoints/
+*.csproj
+*.slnx
+*.vsconfig
+Assets/Editor/Migration/
+*.tgz

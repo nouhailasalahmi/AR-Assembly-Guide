@@ -1,0 +1,298 @@
+\documentclass[12pt,a4paper]{article}
+
+% --- Packages de base ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{geometry}
+\geometry{top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm}
+
+% --- Typographie et mise en page ---
+\usepackage{lmodern}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{amsmath}
+
+% --- Configuration des liens hypertextes ---
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Rapport de Projet - AR Assembly Guide},
+    pdfpagemode=FullScreen,
+}
+
+% --- Couleurs personnalisées pour le code ---
+\definecolor{codeblue}{rgb}{0.13, 0.13, 1.0}
+\definecolor{codegreen}{rgb}{0, 0.5, 0}
+\definecolor{codegray}{rgb}{0.46, 0.45, 0.48}
+\definecolor{codepurple}{rgb}{0.58, 0, 0.82}
+\definecolor{backgroundcolor}{rgb}{0.96, 0.96, 0.96}
+
+% --- Configuration des listings pour C# ---
+\lstset{
+    language=[Sharp]C,
+    backgroundcolor=\color{backgroundcolor},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{codeblue}\bfseries,
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\small,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4
+}
+
+% --- En-tête et Pied de page ---
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Rapport de Projet - Réalité Augmentée}
+\rhead{Guide d'Assemblage Interactif}
+\cfoot{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+% --- Titre ---
+\title{
+    \vspace{2cm}
+    \Huge \textbf{Rapport de Projet : \\ Guide d'Assemblage Assisté par Réalité Augmentée} \\
+    \vspace{1cm}
+    \large \textit{Application d'assistance interactive avec Unity 6 et Vuforia Engine}
+    \vspace{2cm}
+}
+\author{\textbf{Nouhaila Salahmi}}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\newpage
+
+\tableofcontents
+\newpage
+
+% =========================================================================
+\section{Introduction}
+% =========================================================================
+Dans le cadre de la transition vers l'industrie 4.0, l'optimisation des opérations d'assemblage mécanique sur site représente un défi majeur. La Réalité Augmentée (AR) offre une solution innovante en projetant des indications numériques et des repères tridimensionnels directement sur les pièces physiques. 
+
+Ce projet présente le développement d'une application d'assistance à l'assemblage basée sur \textbf{Unity 6} et \textbf{Vuforia Engine}. L'application guide pas à pas un opérateur dans le montage d'un mécanisme à bielle, piston et vilebrequin. Elle propose un guidage interactif tridimensionnel, une validation automatique ou manuelle de la justesse de l'assemblage (tolérance de position et d'orientation) ainsi qu'un calcul de score de performance.
+
+% =========================================================================
+\section{Cahier des Charges et Objectifs}
+% =========================================================================
+L'application doit remplir les exigences fonctionnelles suivantes :
+\begin{itemize}
+    \item \textbf{Tracking Fiable} : Détecter et suivre précisément les composants physiques (le vilebrequin, la bielle, le piston) à l'aide de marqueurs d'images (\textit{Image Targets} Vuforia).
+    \item \textbf{Guidage Étape-par-Étape} : Charger de manière dynamique la séquence d'instructions d'assemblage depuis un fichier de configuration standardisé au format JSON.
+    \item \textbf{Validation en Temps Réel} : Analyser l'écart spatial (en mètres) et l'écart d'orientation (en degrés) entre les positions actuelles et cibles des pièces.
+    \item \textbf{Modes de Validation Flexibles} :
+    \begin{itemize}
+        \item \textbf{Auto} : Validation automatique dès que la pièce est placée dans les tolérances définies.
+        \item \textbf{Button} : L'opérateur clique manuellement sur un bouton pour vérifier son action.
+        \item \textbf{Gesture} : Détection de gestes tactiles spécifiques sur l'écran.
+    \end{itemize}
+    \item \textbf{Évaluation de l'Opérateur} : Évaluation de la session (score final sur 100 points, nombre d'erreurs commises, temps total écoulé) et attribution d'une appréciation qualitative (Excellent, Bien, Correct, À améliorer, Insuffisant).
+\end{itemize}
+
+% =========================================================================
+\section{Architecture Technique et Conception}
+% =========================================================================
+
+\subsection{Structure Globale du Projet}
+L'architecture de l'application repose sur le patron de conception de machine à états (\textit{State Machine}). La figure suivante montre comment les scripts de l'application interagissent.
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.3\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Assets/Markers/vilebrequin.png}
+        \caption{Cible Vilebrequin}
+    \end{minipage}\hfill
+    \begin{minipage}{0.3\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Assets/Markers/bielle.png}
+        \caption{Cible Bielle}
+    \end{minipage}\hfill
+    \begin{minipage}{0.3\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Assets/Markers/piston.png}
+        \caption{Cible Piston}
+    \end{minipage}
+    \label{fig:markers}
+\end{figure}
+
+Les marqueurs ci-dessus (\textit{Image Targets} Vuforia) servent de repères pour détecter les différentes pièces physiques dans l'espace de travail.
+
+\subsection{La Machine à États (AssemblyStateMachine)}
+La classe principale \texttt{AssemblyStateMachine} gère le cycle de vie de la session d'assemblage à travers les états définis par l'énumération \texttt{MachineState} :
+\begin{itemize}
+    \item \textbf{Idle} : En attente du démarrage par l'opérateur.
+    \item \textbf{Running} : Étape en cours d'exécution.
+    \item \textbf{Transitioning} : Phase intermédiaire de validation (durée courte avec retours visuels positifs).
+    \item \textbf{Completed} : Fin de la procédure avec affichage du tableau de bord des résultats.
+\end{itemize}
+
+% =========================================================================
+\section{Implémentation et Code Source}
+% =========================================================================
+
+\subsection{Configuration des Étapes (JSON)}
+La procédure est définie au format JSON, ce qui facilite la maintenance et la création de nouvelles procédures sans modifier le code source C\#. Voici la structure de fichier \texttt{procedure\_montage.json} utilisée dans le projet :
+
+\begin{lstlisting}[caption=Fichier JSON de configuration de la procédure, label=lst:json]
+{
+  "procedureName": "Assemblage du mécanisme piston-bielle-vilebrequin",
+  "mechanismId": "PROC_MOTEUR_ASSEMBLAGE_V1",
+  "steps": [
+    {
+      "id": 1,
+      "instruction": "Placer le vilebrequin dans sa position de référence.",
+      "annotationPrefabName": "Arrow_Vilebrequin",
+      "targetPosition": { "x": 0.0, "y": 0.0, "z": 0.0 },
+      "targetRotation": { "x": 0.0, "y": 0.0, "z": 0.0 },
+      "positionTolerance": 0.05,
+      "rotationTolerance": 10.0,
+      "maxDurationSeconds": 60,
+      "validationMode": 0
+    }
+  ]
+}
+\end{lstlisting}
+
+\subsection{Structure de Données de l'Étape (\texttt{AssemblyStep.cs})}
+Chaque étape est désérialisée dans une instance de la classe \texttt{AssemblyStep} :
+
+\begin{lstlisting}[caption=Classe AssemblyStep.cs, label=lst:step]
+using UnityEngine;
+
+[System.Serializable]
+public class AssemblyStep
+{
+    public int id;
+    public string instruction;
+    public string annotationPrefabName;
+    public Vector3 targetPosition;
+    public Vector3 targetRotation;
+    public float positionTolerance;
+    public float rotationTolerance;
+    public float maxDurationSeconds;
+    public ValidationMode validationMode;
+}
+
+public enum ValidationMode
+{
+    Button,   // Bouton "Valider" sur l'UI
+    Gesture,  // Gestes de balayage tactiles
+    Auto      // Validation automatique par positionnement spatial
+}
+\end{lstlisting}
+
+\subsection{Module de Validation (\texttt{ValidationModule.cs})}
+Le script \texttt{ValidationModule} effectue les calculs géométriques en comparant la position et la rotation de l'objet suivi (\texttt{trackedObject}) par rapport aux cibles définies :
+
+\begin{lstlisting}[caption=Algorithme de validation spatiale, label=lst:validation]
+private bool CheckPositionAndRotation(AssemblyStep step, out string failReason)
+{
+    failReason = string.Empty;
+    if (trackedObject == null)
+    {
+        failReason = "Objet non détecté par le tracking.";
+        return false;
+    }
+
+    // 1. Vérification de la distance de position (en mètres)
+    float posError = Vector3.Distance(trackedObject.position, step.targetPosition);
+    if (posError > step.positionTolerance)
+    {
+        failReason = $"Position incorrecte (écart : {posError * 100f:F1} cm, tolérance : {step.positionTolerance * 100f:F0} cm).";
+        return false;
+    }
+
+    // 2. Vérification de la rotation angulaire (en degrés)
+    Quaternion targetRot = Quaternion.Euler(step.targetRotation);
+    float rotError = Quaternion.Angle(trackedObject.rotation, targetRot);
+    if (rotError > step.rotationTolerance)
+    {
+        failReason = $"Orientation incorrecte (écart : {rotError:F1}°, tolérance : {step.rotationTolerance:F0}°).";
+        return false;
+    }
+
+    return true;
+}
+\end{lstlisting}
+
+\subsection{Gestion du Score et Chronométrage (\texttt{ScoringManager.cs})}
+Le système de notation évalue l'utilisateur selon deux critères : les erreurs commises et le temps nécessaire pour compléter chaque étape :
+
+\begin{lstlisting}[caption=Calcul du score final, label=lst:scoring]
+private int CalculateScore(float totalTime)
+{
+    int score = baseScore;
+
+    // Déduction des points pour chaque erreur
+    score -= _totalErrors * penaltyPerError;
+
+    // Déduction en cas de dépassement du temps moyen alloué
+    if (_totalSteps > 0)
+    {
+        float avgStepTime = totalTime / _totalSteps;
+        float overtime = Mathf.Max(0f, avgStepTime - referenceStepDuration);
+        int timePenalty = Mathf.FloorToInt(overtime / 30f) * penaltyPerTimeThreshold;
+        score -= timePenalty;
+    }
+
+    return Mathf.Clamp(score, 0, 100);
+}
+\end{lstlisting}
+
+% =========================================================================
+\section{Manuel d'Installation et d'Utilisation}
+% =========================================================================
+
+\subsection{Configuration Matérielle et Logicielle requise}
+\begin{itemize}
+    \item \textbf{Logiciel} : Unity 6 (version recommandée : 6000.x) ou ultérieure.
+    \item \textbf{SDK AR} : Vuforia Engine Package pour Unity.
+    \item \textbf{Périphériques} : Webcam PC (pour tests dans l'éditeur) ou Smartphone Android/iOS avec caméra active.
+\end{itemize}
+
+\subsection{Déploiement et Test}
+\begin{enumerate}
+    \item Cloner le projet depuis GitHub :
+    \begin{lstlisting}[language=bash]
+    git clone https://github.com/nouhailasalahmi/AR-Assembly-Guide.git
+    \end{lstlisting}
+    \item Ouvrir le projet dans \textbf{Unity Hub} avec l'éditeur Unity 6.
+    \item Imprimer les marqueurs cibles situés dans le dossier \texttt{Assets/Markers/}.
+    \item Ouvrir la scène principale dans \texttt{Assets/Scenes/MainScene.unity}.
+    \item Cliquer sur \textbf{Play}. Présenter les marqueurs devant la caméra pour tester le tracking et suivre les instructions à l'écran.
+\end{enumerate}
+
+% =========================================================================
+\section{Conclusion et Perspectives}
+% =========================================================================
+L'application développée propose un flux de travail complet et interactif de guidage en Réalité Augmentée. Grâce à sa structure dynamique basée sur un fichier JSON de configuration et son système de validation spatiale adaptatif, elle offre une grande évolutivité. 
+
+Les perspectives de développement futur incluent :
+\begin{itemize}
+    \item \textbf{Reconnaissance de Modèles 3D (CAD Model Tracking)} : Remplacer les marqueurs d'images 2D par la détection directe des modèles CAO des pièces réelles via la technologie de \textit{Model Target} de Vuforia.
+    \item \textbf{Intégration d'un Système de Commande Vocale} : Permettre à l'opérateur de passer à l'étape suivante par commande vocale (ex. "Suivant", "Valider") afin de lui laisser les mains entièrement libres pour le montage physique.
+    \item \textbf{Compatibilité Casque AR} : Porter l'application sur des casques de réalité mixte autonomes comme le Microsoft HoloLens ou le Meta Quest 3 pour une immersion totale.
+\end{itemize}
+
+\end{document}
