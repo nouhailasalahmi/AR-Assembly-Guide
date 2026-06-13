@@ -21,7 +21,7 @@ L'application suit en temps réel la position et l'orientation des pièces réel
 
 ---
 
-## 📂 Structure du Code Source (Scripts C#)
+## Structure du Code Source (Scripts C#)
 
 Tous les scripts se situent dans le dossier [Assets/Scripts](file:///c:/Users/lenovo/My%20project/Assets/Scripts/) :
 
@@ -38,7 +38,7 @@ Tous les scripts se situent dans le dossier [Assets/Scripts](file:///c:/Users/le
 
 ---
 
-## ⚙️ Configuration de la Procédure (Format JSON)
+##  Configuration de la Procédure (Format JSON)
 
 La séquence d'assemblage est définie dans le fichier [procedure_montage.json](file:///c:/Users/lenovo/My%20project/Assets/Resources/procedure_montage.json). Voici un exemple de structure :
 
@@ -64,7 +64,7 @@ La séquence d'assemblage est définie dans le fichier [procedure_montage.json](
 
 ---
 
-## 🛠️ Installation et Lancement du Projet
+##  Installation et Lancement du Projet
 
 ### 1. Prérequis
 * **Unity Hub** avec l'éditeur **Unity 6** (version `6000.x` recommandée).
@@ -88,17 +88,5 @@ Les marqueurs d'images (*Image Targets*) nécessaires pour que la caméra détec
 
 ---
 
-## 📄 Rapport de Projet LaTeX
-
-Le code source LaTeX du rapport complet de ce projet est disponible à la racine du fichier [Rapport_AR_Assembly_Guide.tex](file:///c:/Users/lenovo/My%20project/Rapport_AR_Assembly_Guide.tex). Il contient :
-* La modélisation technique complète du projet.
-* L'architecture détaillée.
-* Les extraits de code C# expliqués.
-* Les perspectives d'évolution (Model Target 3D, guidage par reconnaissance vocale).
-
-Pour générer le rapport au format PDF, compilez le fichier avec n'importe quel éditeur LaTeX (comme Texmaker, Overleaf ou Visual Studio Code avec l'extension LaTeX Workshop) en utilisant le compilateur `pdflatex`.
-
----
-
 ## 📝 Licence
-Projet réalisé dans un but académique et de recherche par **Nouhaila Salahmi**.
+Projet réalisé dans un but académique et de recherche par **Nouhaila Salahmi, wissal EL ABDOUSSI et ESSOUFI Hassan**.
