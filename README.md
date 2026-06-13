@@ -6,7 +6,7 @@ L'application suit en temps réel la position et l'orientation des pièces réel
 
 ---
 
-##  Fonctionnalités Clés
+## 🚀 Fonctionnalités Clés
 
 * **Suivi Spatial Précis (Vuforia)** : Utilisation de marqueurs d'images 2D pour repérer et suivre les pièces réelles (vilebrequin, bielle, piston).
 * **Architecture Guidée par États (State Machine)** : Gestion robuste du flux d'étapes (Accueil, Étape en cours, Feedback succès/erreur, Écran final).
@@ -21,7 +21,7 @@ L'application suit en temps réel la position et l'orientation des pièces réel
 
 ---
 
-## Structure du Code Source (Scripts C#)
+## 📂 Structure du Code Source (Scripts C#)
 
 Tous les scripts se situent dans le dossier [Assets/Scripts](file:///c:/Users/lenovo/My%20project/Assets/Scripts/) :
 
@@ -38,7 +38,7 @@ Tous les scripts se situent dans le dossier [Assets/Scripts](file:///c:/Users/le
 
 ---
 
-##  Configuration de la Procédure (Format JSON)
+## ⚙️ Configuration de la Procédure (Format JSON)
 
 La séquence d'assemblage est définie dans le fichier [procedure_montage.json](file:///c:/Users/lenovo/My%20project/Assets/Resources/procedure_montage.json). Voici un exemple de structure :
 
@@ -64,7 +64,7 @@ La séquence d'assemblage est définie dans le fichier [procedure_montage.json](
 
 ---
 
-##  Installation et Lancement du Projet
+## 🛠️ Installation et Lancement du Projet
 
 ### 1. Prérequis
 * **Unity Hub** avec l'éditeur **Unity 6** (version `6000.x` recommandée).
@@ -85,6 +85,14 @@ Les marqueurs d'images (*Image Targets*) nécessaires pour que la caméra détec
 * [piston.png](file:///c:/Users/lenovo/My%20project/Assets/Markers/piston.png)
 
 *Vous pouvez les imprimer ou les afficher sur un autre écran pour tester le tracking avec votre webcam.*
+
+---
+
+## 📄 Rapport de Projet LaTeX
+
+Le code source LaTeX du rapport de ce projet est disponible à la racine du fichier [Rapport_AR_Assembly_Guide.tex](file:///c:/Users/lenovo/My%20project/Rapport_AR_Assembly_Guide.tex). Il contient la modélisation technique complète, les équations géométriques de calcul d'écart 3D et le fonctionnement de l'interface et du scoring.
+
+Pour générer le rapport au format PDF, compilez le fichier avec n'importe quel éditeur LaTeX (comme Texmaker, Overleaf ou Visual Studio Code avec l'extension LaTeX Workshop) en utilisant le compilateur `pdflatex`.
 
 ---
 
