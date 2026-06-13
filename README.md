@@ -6,7 +6,7 @@ L'application suit en temps réel la position et l'orientation des pièces réel
 
 ---
 
-## 🚀 Fonctionnalités Clés
+##  Fonctionnalités Clés
 
 * **Suivi Spatial Précis (Vuforia)** : Utilisation de marqueurs d'images 2D pour repérer et suivre les pièces réelles (vilebrequin, bielle, piston).
 * **Architecture Guidée par États (State Machine)** : Gestion robuste du flux d'étapes (Accueil, Étape en cours, Feedback succès/erreur, Écran final).
